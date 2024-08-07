@@ -7,15 +7,37 @@ const Squad = sequelize.define('Squad', {
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
   },
+
   name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  squadHandle: DataTypes.STRING,
-  description: DataTypes.STRING,
-  public: DataTypes.BOOLEAN,
-  active: DataTypes.BOOLEAN,
-  picture: DataTypes.STRING,
+
+  squadHandle: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+
+  description: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+
+  publicSquad: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+  },
+
+  active: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+  },
+
+  picture: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+
   squadTypeId: {
     type: DataTypes.UUID,
     allowNull: false,

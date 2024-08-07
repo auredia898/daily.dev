@@ -4,9 +4,9 @@ const User = require('../features/users/userModel');
 const TypeOfSocialMedia = require('../features/typeOfSocialMedia');
 const SocialMediaLinks = require('../features/socialMediaLink');
 const SquadType = require('../features/squadType');
-const Squad = require('../features/squads/squadModel');
-const MemberSquad = require('../features/memberSquad/memberSquadModel');
-const Post = require('../features/posts/postModel');
+const Squad = require('../features/squads');
+const MemberSquad = require('../features/memberSquad');
+const Post = require('../features/posts');
 const Picture = require('../features/picturePost');
 const HidePost = require('../features/hidePost');
 const Tag = require('../features/tags');
@@ -31,6 +31,7 @@ SocialMediaLinks.belongsTo(TypeOfSocialMedia, { foreignKey: 'typeOfSocialMedia' 
 
 // Squad and SquadType
 Squad.belongsTo(SquadType, { foreignKey: 'squadTypeId' });
+SquadType.hasMany(Squad, { foreignKey: 'typeSquadId', onDelete: 'CASCADE'});
 
 // User and MemberSquad
 User.belongsToMany(Squad, { through: MemberSquad, foreignKey: 'userId' });
