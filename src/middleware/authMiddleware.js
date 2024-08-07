@@ -10,7 +10,6 @@ const verifyToken = (req, res, next) => {
         const bearerToken = token.split(' ')[1];
         const decoded = jwt.verify(bearerToken, process.env.SECRET_KEY);
         req.user = decoded;
-        console.log(req.user)
         next();
     } catch (error) {
         res.status(401).json({ error: 'Invalid token' });
