@@ -2,6 +2,8 @@ const bcrypt = require('bcryptjs')
 const { User } = require('../../utils/index')
 const jwt = require('jsonwebtoken');
 const generateUsername = require('../../utils/usernameGenerator');
+const generateOTP = require('../../utils/otpGenerator');
+const sendEmail = require('../../utils/sendEmail');
 
 class AuthService {   
 
@@ -40,6 +42,33 @@ class AuthService {
         return { token, user };  
     }
 
+
+    async sendOTP(email) {
+        const otp = generateOTP();
+        const user = await User.findOne({ where: { email } });
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        user.otp = otp;
+        await user.save();
+
+        await sendEmail({
+            to: email,
+            subject: 'OTP',
+            message: `<p>Your OTP to reset password is: <strong>${otp}</strong></p>`,
+        });
+    }
+
+    async verifyOTP(email, otp) {
+        const user = await User.findOne({ where: { email, otp } });
+        if (!user) {
+            throw new Error('Invalid OTP');
+        }
+
+        user.otp = null;
+        await user.save();
+    }
 }
 
 module.exports = new AuthService();

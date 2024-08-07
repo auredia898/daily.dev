@@ -68,6 +68,10 @@ const User = sequelize.define('User', {
   jobTitle: {
     type: DataTypes.STRING,
     allowNull: true,
+  },
+  otp: {
+    type: DataTypes.STRING,
+    allowNull: true,
   }
 }, {
   tableName: 'users',
