@@ -2,6 +2,7 @@ const {User } = require('../../utils/index');
 const bcrypt = require('bcryptjs');
 
 class UserService {
+
   async getAllUsers() {
     return await User.findAll();
   }
@@ -35,26 +36,23 @@ class UserService {
     return { student, user };
   }
 
-  async deleteStudent(userId) {
-    const student = await Student.findOne({ where: { userId } });
-    if (!student) {
-      throw new Error('Student not found');
+  async deleteUser(id) {
+    const user = await User.findOne({ where: { id } });
+    if (!user) {
+      throw new Error('User not found');
     }
-    const user = await User.findOne({ where: { id: userId } });
-    await student.destroy();
     await user.destroy();
-    return student;
+    return user;
   }
 
-  async getProfile(userId) {
-    const student = await Student.findOne({
-      where: { userId },
-      include: [{ model: User, attributes: ['id', 'email', 'role'] }],
+  async getProfile(id) {
+    const user = await User.findOne({
+      where: { id }
     });
-    if (!student) {
-      throw new Error('Student not found');
+    if (!user) {
+      throw new Error('User not found');
     }
-    return student;
+    return user;
   }
   
 }

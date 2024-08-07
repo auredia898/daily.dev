@@ -31,11 +31,11 @@ class UserController {
     }
   }
 
-  async deleteStudent(req, res) {
+  async deleteUser(req, res) {
     try {
-      const { userId } = req.params;
-      const student = await StudentService.deleteStudent(userId);
-      res.send({message: 'user deleted successfully!', student})
+      const { id } = req.params;
+      const user = await UserService.deleteUser(id);
+      res.send({message: 'user deleted successfully!', user})
     } catch (error) {
       res.status(404).json({ error: error.message });
     }
@@ -43,8 +43,8 @@ class UserController {
 
   async getProfile(req, res) {
     try {
-      const userId = req.user.userId; 
-      const profile = await StudentService.getProfile(userId);
+      const id = req.user.userId; 
+      const profile = await UserService.getProfile(id);
       res.status(200).json(profile);
     } catch (error) {
       res.status(404).json({ error: error.message });

@@ -1,12 +1,12 @@
 const express = require('express')
 const UserController = require('./userController');
-// const { verifyToken, verifyRole} = require('../middlewares/authMiddlware');
+const { verifyToken, verifyRole} = require('../../middleware/authMiddleware');
 
 const UserRouter = express.Router()
 
 // UserRouter.use(verifyToken);
 
-// UserRouter.get('/profile', UserController.getProfile);
+UserRouter.get('/get/profile', verifyToken, UserController.getProfile);
 
 // UserRouter.use(verifyRole( ['ROLE_User'] ));
 
@@ -18,6 +18,6 @@ UserRouter.get('/:id', UserController.getUserByUserId);
 
 // UserRouter.use(verifyRole( ['ROLE_ADMIN'] ));
 
-// UserRouter.delete('/:userId', UserController.deleteUser);
+UserRouter.delete('/:id', UserController.deleteUser);
 
 module.exports = UserRouter; 
