@@ -4,9 +4,9 @@ const User = require('../features/users/userModel');
 const TypeOfSocialMedia = require('../features/typeOfSocialMedia');
 const SocialMediaLinks = require('../features/socialMediaLink');
 const SquadType = require('../features/squadType');
-const Squad = require('../features/squads');
-const MemberSquad = require('../features/memberSquad');
-const Post = require('../features/posts');
+const Squad = require('../features/squads/squadModel');
+const MemberSquad = require('../features/memberSquad/memberSquadModel');
+const Post = require('../features/posts/postModel');
 const Picture = require('../features/picturePost');
 const HidePost = require('../features/hidePost');
 const Tag = require('../features/tags');
@@ -37,9 +37,11 @@ User.belongsToMany(Squad, { through: MemberSquad, foreignKey: 'userId' });
 Squad.belongsToMany(User, { through: MemberSquad, foreignKey: 'squadId' });
 
 // Post and User
+User.hasMany(Post, { foreignKey: 'userId' })
 Post.belongsTo(User, { foreignKey: 'userId' });
 
 // Post and Squad
+Squad.hasMany(Squad, { foreignKey: 'squadId' });
 Post.belongsTo(Squad, { foreignKey: 'squadId' });
 
 // Post and Picture
@@ -113,6 +115,10 @@ History.belongsTo(Post, { foreignKey: 'postId' });
 // User and Subscription
 User.hasMany(Subscription, { foreignKey: 'userId' });
 Subscription.belongsTo(User, { foreignKey: 'userId' });
+
+// Relation many-to-many
+User.belongsToMany(Squad, { through: MemberSquad, foreignKey: 'userId' });
+Squad.belongsToMany(User, { through: MemberSquad, foreignKey: 'squadId' });
 
 // Sync database
 sequelize.sync({ alter: true }).then(() => {

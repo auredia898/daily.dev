@@ -6,6 +6,8 @@ const dotenv = require('dotenv')
 const helmet = require('helmet')
 const cookieParser = require('cookie-parser');
 const cors = require('cors')
+const postRouter = require('./features/posts/postRoute')
+
 
 const router = require('./api')
 
@@ -60,6 +62,8 @@ app.get("/", (req, res) =>{
     res.send("welcome to my app");
 });
 
+app.use(postRouter)
+
 const httpsServer = https.createServer(credentials, app)
 
 httpsServer.listen(PORT, () => {
@@ -73,6 +77,6 @@ httpApp.use((req, res, next) =>{
 
 const httpServer = http.createServer(httpApp)
 
-httpServer.listen(80, ()=>{
+httpServer.listen(8080, ()=>{
     console.log(`Server HTTP en cours d\'exécution sur le port 80 et redirgé vers HTTPS `)
 })
