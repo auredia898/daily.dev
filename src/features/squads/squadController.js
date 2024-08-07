@@ -8,7 +8,6 @@ class SquadController{
         try{
             const {name, squadHandle, description, publicSquad, active, squadTypeId} = req.body
             
-            console.log("1");
             const squadData = {
                 name, 
                 squadHandle, 
@@ -36,6 +35,25 @@ class SquadController{
             res.status(200).json(updateSquad);
         }catch(error){
             res.status(500).json({ message: error.message })
+        }
+    }
+
+    async deleteSquad(req, res){
+        try{
+            const { id } = req.params;
+            const deleteSquad = await SquadService.deleteSquad(id)
+            res.status(200).send(deleteSquad);
+        }catch(error){
+            res.status(404).json({ message: error.message})
+        }
+    }
+
+    async getAllSquads(req, res){
+        try{
+            const Squads = await SquadService.getAllSquads();
+            res.status(200).json(Squads);
+        }catch(error){
+            res.status(500).json({ message: error.message})
         }
     }
 }

@@ -19,6 +19,19 @@ class SquadService {
         return squad;
     }
 
+    async deleteSquad(id){
+        const squad = await Squad.findOne({ where: { id } })
+        if(!squad){
+            throw new Error ('Squad not found!')        
+        }    
+        await squad.destroy();
+        return { message: 'Squad deleted successfully' };
+
+    }
+
+    async getAllSquads(){
+        return await Squad.findAll();
+    }
 
 }
 

@@ -8,8 +8,8 @@ const router = express.Router();
 
 router.post('/', upload.single('picture'), squadController.createSquad);
 router.put('/:id', upload.single('picture'), squadController.updateSquad);
-// router.get('/', squadController.getAllSquadType);
-// router.delete('/:id', squadController.deleteSquadType)
+router.get('/', squadController.getAllSquads);
+router.delete('/:id', squadController.deleteSquad)
 
 
 
