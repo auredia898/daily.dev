@@ -1,12 +1,13 @@
 const express = require('express');
-const router = express.Router();
 const squadController = require('./squadController');
+const upload = require('../../middleware/muter')
+const router = express.Router();
 
 
 
 
-router.post('/', squadController.createSquad);
-// router.put('/:id', squadController.updateSquadType);
+router.post('/', upload.single('picture'), squadController.createSquad);
+router.put('/:id', upload.single('picture'), squadController.updateSquad);
 // router.get('/', squadController.getAllSquadType);
 // router.delete('/:id', squadController.deleteSquadType)
 

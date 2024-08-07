@@ -31,7 +31,7 @@ SocialMediaLinks.belongsTo(TypeOfSocialMedia, { foreignKey: 'typeOfSocialMedia' 
 
 // Squad and SquadType
 Squad.belongsTo(SquadType, { foreignKey: 'squadTypeId' });
-SquadType.hasMany(Squad, { foreignKey: 'typeSquadId', onDelete: 'CASCADE'});
+SquadType.hasMany(Squad, { foreignKey: 'squadTypeId', onDelete: 'CASCADE'});
 
 // User and MemberSquad
 User.belongsToMany(Squad, { through: MemberSquad, foreignKey: 'userId' });
