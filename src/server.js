@@ -6,7 +6,7 @@ const dotenv = require('dotenv')
 const helmet = require('helmet')
 const cookieParser = require('cookie-parser');
 const cors = require('cors')
-const postRouter = require('./features/posts/postRoute')
+
 
 
 const router = require('./api')
@@ -61,8 +61,6 @@ app.use('/api', router);
 app.get("/", (req, res) =>{
     res.send("welcome to my app");
 });
-
-app.use(postRouter)
 
 const httpsServer = https.createServer(credentials, app)
 

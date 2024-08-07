@@ -17,6 +17,10 @@ const Post = sequelize.define('Post', {
     type: DataTypes.STRING(255),
     allowNull: false,
   },
+  picture :  {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+  },
   link: DataTypes.STRING,
   userId: {
     type: DataTypes.UUID,

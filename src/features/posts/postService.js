@@ -3,12 +3,15 @@ const Post = require('./postModel');
 const Squad = require('../squads/squadModel');
 
 class PostService {
-    async createPost({ thumbnail, title, content, description, link, userId, squadId }) {
+    async createPost({ thumbnail, title, content, picture, description, link, userId, squadId }) {
         try {
             const user = await User.findOne({ where: { id: userId } });
             const squad = await Squad.findOne({ where: { id: squadId } });
-            if (!user || !squad) {
-                throw new Error('Unable to create post: User or Squad not found');
+            if (!user ) {
+                throw new Error('Unable to create post: User not found');
+            }
+            if (!squad) {
+                throw new Error('Unable to create post: Squad not found');   
             }
             // Vérification si l'utilisateur est membre du groupe
             const isMember = await squad.hasUser(user); // Supposant que vous avez une relation entre Squad et User
@@ -16,7 +19,7 @@ class PostService {
             throw new Error('Unable to create post: User is not a member of the squad');
             }
 
-            const post = await Post.create({ thumbnail, title, content, description, link, userId, squadId });
+            const post = await Post.create({ thumbnail, title, content, picture, description, link, userId, squadId });
             return post;
         } catch (error) {
             throw new Error(`Error creating post: ${error.message}`);
@@ -36,13 +39,13 @@ class PostService {
         }
     }
 
-    async updatePost(postId, { thumbnail, title, content, description, link, userId, squadId }) {
+    async updatePost(postId, { thumbnail, title, content, picture, description, link, userId, squadId }) {
         try {
             const postFind = await Post.findByPk(postId);
             if (!postFind) {
                 throw new Error('Post not found');
             }
-            await Post.update({ thumbnail, title, content, description, link, userId, squadId }, { where: { id: postId } });
+            await Post.update({ thumbnail, title, content, picture, description, link, userId, squadId }, { where: { id: postId } });
             return await Post.findByPk(postId);
         } catch (error) {
             throw new Error(`Error updating post: ${error.message}`);

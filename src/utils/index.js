@@ -1,23 +1,22 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 const User = require('../features/users/userModel');
-const TypeOfSocialMedia = require('../features/typeOfSocialMedia');
-const SocialMediaLinks = require('../features/socialMediaLink');
-const SquadType = require('../features/squadType');
-const Squad = require('../features/squads');
-const MemberSquad = require('../features/memberSquad');
-const Post = require('../features/posts');
-const Picture = require('../features/picturePost');
-const HidePost = require('../features/hidePost');
-const Tag = require('../features/tags');
-const PostTag = require('../features/postTags');
-const Bookmark = require('../features/bookmarks');
-const Comment = require('../features/comments');
-const Vote = require('../features/votes');
-const CommentTagsUsers = require('../features/commentTagsUsers');
-const PostsTagsUsers = require('../features/postTagsUsers');
-const History = require('../features/history');
-const Subscription = require('../features/subscriptions');
+const TypeOfSocialMedia = require('../features/typeOfSocialMedia/TypeOfSocialMediaModel');
+const SocialMediaLinks = require('../features/socialMediaLink/SocialMediaLinkModel');
+const SquadType = require('../features/squadType/squadTypeModel');
+const Squad = require('../features/squads/squadModel');
+const MemberSquad = require('../features/memberSquad/memberSquadModel');
+const Post = require('../features/posts/postModel');
+const HidePost = require('../features/hidePost/hidePost');
+const Tag = require('../features/tags/tagsModel');
+const PostTag = require('../features/postTags/postTagsModel');
+const Bookmark = require('../features/bookmarks/bookmarksModel');
+const Comment = require('../features/comments/commentModel');
+const Vote = require('../features/votes/voteModel');
+const CommentTagsUsers = require('../features/commentTagsUsers/commentTagsUserModel');
+const PostsTagsUsers = require('../features/postTagsUsers/postTagsUsers');
+const History = require('../features/history/historyModel');
+const Subscription = require('../features/subscriptions/subscriptionModel');
 // const Notification = require('./Notification');
 
 // Relations
@@ -45,9 +44,6 @@ Post.belongsTo(User, { foreignKey: 'userId' });
 Squad.hasMany(Squad, { foreignKey: 'squadId' });
 Post.belongsTo(Squad, { foreignKey: 'squadId' });
 
-// Post and Picture
-Post.hasMany(Picture, { foreignKey: 'postId' });
-Picture.belongsTo(Post, { foreignKey: 'postId' });
 
 // User and HidePost
 User.belongsToMany(Post, { through: HidePost, foreignKey: 'userId' });
@@ -134,7 +130,6 @@ module.exports = {
   Squad,
   MemberSquad,
   Post,
-  Picture,
   HidePost,
   Tag,
   PostTag,
