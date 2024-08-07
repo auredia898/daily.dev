@@ -1,30 +1,30 @@
-
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/db');
 
-const Squad = sequelize.define('Squad', {
+const Comment = sequelize.define('Comment', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
   },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  squadHandle: DataTypes.STRING,
-  description: DataTypes.STRING,
-  public: DataTypes.BOOLEAN,
-  active: DataTypes.BOOLEAN,
-  picture: DataTypes.STRING,
-  squadTypeId: {
+  userId: {
     type: DataTypes.UUID,
     allowNull: false,
   },
+  postId: {
+    type: DataTypes.UUID,
+    allowNull: false,
+  },
+  parentCommentId: DataTypes.UUID,
+  message: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  picture: DataTypes.STRING,
 }, {
-  tableName: 'squad',
+  tableName: 'comments',
   timestamps: true,
   updatedAt: 'updateTimestamp',
 });
 
-module.exports = Squad;
+module.exports = Comment;

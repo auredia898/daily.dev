@@ -1,5 +1,5 @@
 const express = require('express');
-const typeSquadRouter = require('./features/typeSquad/typeSquad.Router');
+const typeSquadRouter = require('./features/squadType/squadTypeRouter');
 
 
 const router = express();
