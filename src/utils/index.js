@@ -116,7 +116,7 @@ User.hasMany(Subscription, { foreignKey: 'userId' });
 Subscription.belongsTo(User, { foreignKey: 'userId' });
 
 // Sync database
-sequelize.sync({ alter: true }).then(() => {
+sequelize.sync({ force: true }).then(() => {
   console.log('Database & tables created!');
 });
 

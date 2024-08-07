@@ -5,5 +5,7 @@ const authRouter = express.Router()
 
 authRouter.post('/register', authController.register);
 authRouter.post('/login',authController.login);
+authRouter.post('/send-otp', authController.sendOTP);
+authRouter.post('/verify-otp', authController.verifyOTP);
 
-module.exports = authRouter;
+module.exports = authRouter; 
