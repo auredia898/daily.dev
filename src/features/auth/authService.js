@@ -68,6 +68,43 @@ class AuthService {
 
         user.otp = null;
         await user.save();
+
+        const otpToken = jwt.sign({ email }, process.env.SECRET_KEY, { expiresIn: '5m' });
+        return otpToken;
+    }
+
+    async forgotPassword(email, newPassword) {
+        const user = await User.findOne({ where: { email } });
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedPassword;
+        await user.save();
+    }
+
+    async changePassword(userId, oldPassword, newPassword) {
+        const user = await User.findByPk(userId);
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
+        if (!isPasswordValid) {
+            throw new Error('Invalid current password');
+        }
+
+        const isSamePassword = await bcrypt.compare(newPassword, user.password);
+        if (isSamePassword) {
+            throw new Error('New password cannot be the same as the old password');
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedPassword;
+        await user.save();
+
+        return user;
     }
 }
 
