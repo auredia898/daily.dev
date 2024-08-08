@@ -1,0 +1,65 @@
+const User = require('../users/userModel');
+const Post = require('../posts/postModel');
+const Bookmark = require('./bookmarksModel');
+
+class BookmarkService {
+    
+    async createBookmark(userId, postId) {
+        try {
+            const user = await User.findByPk(userId);
+            const post = await Post.findByPk(postId);
+            if (!user || !post) {
+                throw new Error('User or Post not found');
+            }
+
+            const bookmark = await Bookmark.create({ userId, postId });
+            return bookmark;
+        } catch (error) {
+            throw new Error(`Error creating bookmark: ${error.message}`);
+        }
+    }
+
+    async getBookmarksByUser(userId) {
+        try {
+            const user = await User.findByPk(userId);
+            if (!user) {
+                throw new Error('User not found');
+            }
+
+            const bookmarks = await Bookmark.findAll({ where: { userId } });
+            return bookmarks;
+        } catch (error) {
+            throw new Error(`Error retrieving bookmarks: ${error.message}`);
+        }
+    }
+
+    async getBookmarksByPost(postId) {
+        try {
+            const post = await Post.findByPk(postId);
+            if (!post) {
+                throw new Error('Post not found');
+            }
+
+            const bookmarks = await Bookmark.findAll({ where: { postId } });
+            return bookmarks;
+        } catch (error) {
+            throw new Error(`Error retrieving bookmarks: ${error.message}`);
+        }
+    }
+
+    async deleteBookmark(userId, postId) {
+        try {
+            const bookmark = await Bookmark.findOne({ where: { userId, postId } });
+            if (!bookmark) {
+                throw new Error('Bookmark not found');
+            }
+
+            await Bookmark.destroy({ where: { userId, postId } });
+            return { message: 'Bookmark deleted successfully' };
+        } catch (error) {
+            throw new Error(`Error deleting bookmark: ${error.message}`);
+        }
+    }
+}
+
+module.exports = new BookmarkService();

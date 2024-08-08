@@ -18,6 +18,6 @@ router.use('/typeSquad', typeSquadRouter)
 router.use('/squad', squadRouter)
 router.use('/post', postRouter)
 router.use('/memberSquad', memberSquadRouter)
-router.use('/boomaker', bookmarkRouter)
+router.use('/bookmarker', bookmarkRouter)
 
 module.exports = router;
