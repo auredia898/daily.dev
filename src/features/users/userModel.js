@@ -72,7 +72,7 @@ const User = sequelize.define('User', {
   otp: {
     type: DataTypes.STRING,
     allowNull: true,
-  }
+  },
 }, {
   tableName: 'users',
   timestamps: true,
