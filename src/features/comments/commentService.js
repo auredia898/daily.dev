@@ -2,103 +2,119 @@ const { Comment , Post} = require('../../utils/index');
 
 class CommentService{
 
-    async createCommentForPost(commentData, userId){
+    async createCommentForPost(commentData){
 
-        const newComment = await Comment.create(commentData, userId);
+        const { postId } = commentData
 
-        if(commentData.postId) {
-            const post = await Post.findOne( { where: {id: commentData.postId } });
-            if(!post){
-                throw new Error('Post not found!');
-            }
-            await newComment.addDegree(post);
+        const post = await Post.findOne( { where: { id: postId } });
+
+        if(!post){
+            throw new Error('Post not found!');
         }
+
+        const newComment = await Comment.create(commentData);
+
         return newComment;
     }
 
-    async createCommentForComment(commentData, userId){
+    async createCommentForComment(commentData){
 
-        const newComment = await Comment.create(commentData, userId);
+        const { parentCommentId } = commentData
 
-        if(commentData.parentCommentId) {
-            const comment = await Comment.findOne( { where: {id: commentData.parentCommentId } });
-            if(!post){
-                throw new Error('Comment not found!');
-            }
-            await newComment.addDegree(comment);
+        const comment = await Comment.findOne( { where: { id: parentCommentId } });
+
+        if(!comment){
+            throw new Error('Comment not found!');
         }
+
+        const newComment = await Comment.create(commentData);
+
         return newComment;
     }
 
-    async updateProgram(id, programData){
-        const program = await  Program.findOne({ where: { id } })
-        if(!program){
-            throw new Error ('Program not found!')        
-        }
-        
-        await program.update(programData)
-
-        if(programData.degreeId) {
-            const degree = await Degree.findOne( { where: {id: programData.degreeId } });
-            if(!degree){
-                throw new Error('Degree not found!');
-            }
-            await program.setDegrees([degree]);
-        }
-
-        return program;
-    }
-
-    async deleteProgram(id){
-        const program = await Program.findOne({ where: { id } })
-        if(!program){
-            throw new Error ('Program not found!')        
+    async deleteComment(id){
+        const comment = await Comment.findOne({ where: { id } })
+        if(!comment){
+            throw new Error ('Comment not found!')        
         }    
-        await program.destroy();
-        return program;
+        await comment.destroy();
+        return comment;
     }
 
-    async getAllPrograms(){
-        return await Program.findAll({ include: [ { model: University, attributes: ['id', 'name', 'emailUniversity'] }] });
-    }
-
-    async getProgramById(id){
-        const program = await Program.findOne({
-             where: {id},
-             include: [ { model: University, attributes: ['id', 'name', 'emailUniversity'] }]
-         });
-        if (!program){
-            throw new Error ('Program not found!') 
-        }
-        return program;
-    }
-
-    async getProgramByUniversity(universityId){
-        const program = await Program.findOne({
-            where: { universityId },
-            include: [ { model: University, attributes: ['id', 'name', 'emailUniversity'] }]
+    async getAllComments(){
+        return await Comment.findAll({ 
+            include: [ { 
+                model: Post, 
+                attributes: ['id', 'title', 'userId']
+             }] 
         });
-        if(!program){
-            throw new Error ('Program not found!') 
-        }
-        return program;
     }
-    
-    async addDegreeToProgram(programId, degreeId){
 
-        const program = await Program.findOne( { where: {id: programId } } )
-        if(!program){
-            throw new Error('Program not found!');
+    async getCommentById(id){
+        const comment = await Comment.findOne({
+             where: {id},
+             include: [ { 
+                model: Post, 
+                attributes: ['id', 'title', 'userId']
+             }] 
+        });
+        if (!comment){
+            throw new Error ('comment not found!') 
+        }
+        return comment;
+    }
+
+    async getCommentByPostId(postId) {
+        const comments = await Comment.findAll({
+            where: { postId },
+            include: [{ model: Post, attributes: ['id', 'title', 'userId'] }]
+        });
+
+        if (!comments) {
+            throw new Error('No comments found for this post!');
         }
 
-        const degree = await Degree.findOne( { where: {id: degreeId } })
-        if(!degree){
-            throw new Error('Degree not found!')
-        }
+        return comments;
+    }
+
+    async getCommentByCommentId(commentId) {
+        const comments = await Comment.findAll({
+            where: { parentCommentId: commentId },
+            include: [{
+                model: Comment,
+                as: 'replies',
+                attributes: ['id', 'message', 'userId']
+            }]
+        });
         
-        await program.addDegree(degree)
-        return program;
+        if (!comments) {
+            throw new Error('No replies found for this comment!');
+        }
+
+        return comments;
     }
+
+    async updateComment(id, commentData) {
+        const comment = await Comment.findOne({ where: { id } });
+        if (!comment) {
+            throw new Error('Comment not found!');
+        }
+
+        const updatedFields = {};
+
+        if (commentData.message !== undefined) {
+            updatedFields.message = commentData.message;
+        }
+
+        if (commentData.picture !== undefined) {
+            updatedFields.picture = commentData.picture;
+        }
+
+        await comment.update(updatedFields);
+
+        return comment;
+    }
+
 }
 
 module.exports = new CommentService()
