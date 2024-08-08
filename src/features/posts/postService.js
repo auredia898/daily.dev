@@ -51,8 +51,6 @@ class PostService {
             throw new Error(`Error retrieving posts: ${error.message}`);
         }
     }
-    
-
 
     async getPostById(postId) {
         try {
@@ -65,6 +63,16 @@ class PostService {
             throw new Error(`Error retrieving post: ${error.message}`);
         }
     }
+
+    async getAllPosts() {
+        try {
+            const posts = await Post.findAll();
+            return posts;
+        } catch (error) {
+            throw new Error(`Error retrieving posts: ${error.message}`);
+        }
+    }
+    
 
     async updatePost(postId, { thumbnail, title, content, picture, description, link, userId, squadId }) {
         try {
