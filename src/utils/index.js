@@ -7,7 +7,6 @@ const SquadType = require('../features/squadType/squadTypeModel');
 const Squad = require('../features/squads/squadModel');
 const MemberSquad = require('../features/memberSquad/memberSquadModel');
 const Post = require('../features/posts/postModel');
-const Picture = require('../features/picturePost/picturePostModel');
 const HidePost = require('../features/hidePost/hidePost');
 const Tag = require('../features/tags/tagsModel');
 const PostTag = require('../features/postTags/postTagsModel');
@@ -38,14 +37,13 @@ User.belongsToMany(Squad, { through: MemberSquad, foreignKey: 'userId' });
 Squad.belongsToMany(User, { through: MemberSquad, foreignKey: 'squadId' });
 
 // Post and User
+User.hasMany(Post, { foreignKey: 'userId' })
 Post.belongsTo(User, { foreignKey: 'userId' });
 
 // Post and Squad
+Squad.hasMany(Post, { foreignKey: 'squadId' });
 Post.belongsTo(Squad, { foreignKey: 'squadId' });
 
-// Post and Picture
-Post.hasMany(Picture, { foreignKey: 'postId' });
-Picture.belongsTo(Post, { foreignKey: 'postId' });
 
 // User and HidePost
 User.belongsToMany(Post, { through: HidePost, foreignKey: 'userId' });
@@ -115,6 +113,7 @@ History.belongsTo(Post, { foreignKey: 'postId' });
 User.hasMany(Subscription, { foreignKey: 'userId' });
 Subscription.belongsTo(User, { foreignKey: 'userId' });
 
+
 // Sync database
 sequelize.sync({ alter: true }).then(() => {
   console.log('Database & tables created!');
@@ -128,7 +127,6 @@ module.exports = {
   Squad,
   MemberSquad,
   Post,
-  Picture,
   HidePost,
   Tag,
   PostTag,
