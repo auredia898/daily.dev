@@ -36,6 +36,43 @@ class PostService {
             throw new Error(`Error retrieving posts: ${error.message}`);
         }
     }
+    
+
+    async getPostsByUser(userId) {
+        try {
+            const user = await User.findByPk(userId);
+            if (!user) {
+                throw new Error('Unable to retrieve posts: User not found');
+            }
+
+            const posts = await Post.findAll({ where: { userId } });
+            return posts;
+        } catch (error) {
+            throw new Error(`Error retrieving posts: ${error.message}`);
+        }
+    }
+
+    async getPostById(postId) {
+        try {
+            const post = await Post.findByPk(postId);
+            if (!post) {
+                throw new Error(`Post with ID ${postId} not found`);
+            }
+            return post;
+        } catch (error) {
+            throw new Error(`Error retrieving post: ${error.message}`);
+        }
+    }
+
+    async getAllPosts() {
+        try {
+            const posts = await Post.findAll();
+            return posts;
+        } catch (error) {
+            throw new Error(`Error retrieving posts: ${error.message}`);
+        }
+    }
+    
 
     async updatePost(postId, { thumbnail, title, content, picture, description, link, userId, squadId }) {
         try {

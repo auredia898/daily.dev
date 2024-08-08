@@ -19,6 +19,33 @@ class PostController {
         }
     }
 
+    async getPostsByUser (req, res) {
+        try {
+            const posts = await PostService.getPostsByUser(req.params.userId)
+            res.status(200).json(posts)
+        } catch (error) {
+            res.status(400).json({error : error.message})
+        }
+    }
+
+    async getPostById (req, res) {
+        try {
+            const post = await PostService.getPostById(req.params.postId)
+            res.status(200).json(post)
+        } catch (error) {
+            res.status(400).json({error : error.message})
+        }
+    }
+
+    async getAllPosts(req, res) {
+        try {
+            const posts = await PostService.getAllPosts()
+            res.status(200).json(posts)
+        } catch (error) {
+            res.status(400).json({error : error.message})
+        }
+    }
+     
     async updatePost (req, res) {
         try {
             const post = await PostService.updatePost(req.params.postId, req.body)

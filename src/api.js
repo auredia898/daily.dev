@@ -8,6 +8,8 @@ const postRouter = require('./features/posts/postRoute')
 const memberSquadRouter = require('./features/memberSquad/memberSquadRouter')
 const historyRouter = require('./features/history/historyRouter')
 const tagsRouter = require('./features/tags/tagsRouter')
+// const bookmarkRouter = require('./features/bookmarks/bookmarksRouter')
+const postTagRouter = require('./features/postTags/postTagRouter')
 
 
 const router = express();
@@ -21,7 +23,9 @@ router.use('/post', postRouter)
 router.use('/memberSquad', memberSquadRouter)
 router.use('/history', historyRouter)
 router.use('/tags', tagsRouter)
+router.use('/postTag', postTagRouter)
 
 
+// router.use('/boomaker', bookmarkRouter)
 
 module.exports = router;
