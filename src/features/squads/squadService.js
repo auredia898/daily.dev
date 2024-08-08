@@ -8,31 +8,31 @@ class SquadService {
         return squad;
     }
 
-    // async updateSquadType(id, squadTypeData){
-    //     const squadType = await SquadType.findOne({ where: { id } })
-    //     if(!squadType){
-    //         throw new Error ('Type of Squad not found!')        
-    //     }
+    async updateSquad(id, squadData){
+        const squad = await Squad.findOne({ where: { id } })
+        if(!squad){
+            throw new Error ('Type of Squad not found!')        
+        }
         
-    //     squadType.set(squadTypeData);
-    //     await squadType.save();
-    //     return squadType;
-    // }
+        squad.set(squadData);
+        await squad.save();
+        return squad;
+    }
 
+    async deleteSquad(id){
+        const squad = await Squad.findOne({ where: { id } })
+        if(!squad){
+            throw new Error ('Squad not found!')        
+        }    
+        await squad.destroy();
+        return { message: 'Squad deleted successfully' };
 
-    // async deleteSquadType(id){
-    //     const squadType = await SquadType.findOne({ where: { id } })
-    //     if(!squadType){
-    //         throw new Error ('Type of Squad not found!')        
-    //     }    
-    //     await squadType.destroy();
-    //     return { message: 'Type of Squad deleted successfully' };
+    }
 
-    // }
+    async getAllSquads(){
+        return await Squad.findAll();
+    }
 
-    // async getAllSquadType(){
-    //     return await SquadType.findAll();
-    // }
 }
 
 module.exports = new SquadService();

@@ -7,21 +7,19 @@ class PostService {
         try {
             const user = await User.findOne({ where: { id: userId } });
             const squad = await Squad.findOne({ where: { id: squadId } });
-            if (!user ) {
-                throw new Error('Unable to create post: User not found');
-            }
-            if (!squad) {
-                throw new Error('Unable to create post: Squad not found');   
+            if (!user || !squad ) {
+                throw new Error('Unable to create post: User or Squad not found');
             }
             // Vérification si l'utilisateur est membre du groupe
-            const isMember = await squad.hasUser(user); // Supposant que vous avez une relation entre Squad et User
+/*             const isMember = await squad.hasUser(user); // Supposant que vous avez une relation entre Squad et User
             if (!isMember) {
             throw new Error('Unable to create post: User is not a member of the squad');
-            }
+            } */
 
             const post = await Post.create({ thumbnail, title, content, picture, description, link, userId, squadId });
             return post;
         } catch (error) {
+            console.log(error)
             throw new Error(`Error creating post: ${error.message}`);
         }
     }

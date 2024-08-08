@@ -18,6 +18,12 @@ const Squad = sequelize.define('Squad', {
     allowNull: true,
   },
 
+  views: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    defaultValue: 0
+  },
+
   description: {
     type: DataTypes.STRING,
     allowNull: true,
@@ -25,12 +31,14 @@ const Squad = sequelize.define('Squad', {
 
   publicSquad: {
     type: DataTypes.BOOLEAN,
-    allowNull: true,
+    allowNull: false,
+    defaultValue: true,
   },
 
   active: {
     type: DataTypes.BOOLEAN,
-    allowNull: true,
+    allowNull: false,
+    defaultValue: true,
   },
 
   picture: {

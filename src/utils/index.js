@@ -30,7 +30,7 @@ SocialMediaLinks.belongsTo(TypeOfSocialMedia, { foreignKey: 'typeOfSocialMedia' 
 
 // Squad and SquadType
 Squad.belongsTo(SquadType, { foreignKey: 'squadTypeId' });
-SquadType.hasMany(Squad, { foreignKey: 'typeSquadId', onDelete: 'CASCADE'});
+SquadType.hasMany(Squad, { foreignKey: 'squadTypeId', onDelete: 'CASCADE'});
 
 // User and MemberSquad
 User.belongsToMany(Squad, { through: MemberSquad, foreignKey: 'userId' });
@@ -41,7 +41,7 @@ User.hasMany(Post, { foreignKey: 'userId' })
 Post.belongsTo(User, { foreignKey: 'userId' });
 
 // Post and Squad
-Squad.hasMany(Squad, { foreignKey: 'squadId' });
+Squad.hasMany(Post, { foreignKey: 'squadId' });
 Post.belongsTo(Squad, { foreignKey: 'squadId' });
 
 
@@ -113,9 +113,6 @@ History.belongsTo(Post, { foreignKey: 'postId' });
 User.hasMany(Subscription, { foreignKey: 'userId' });
 Subscription.belongsTo(User, { foreignKey: 'userId' });
 
-// Relation many-to-many
-User.belongsToMany(Squad, { through: MemberSquad, foreignKey: 'userId' });
-Squad.belongsToMany(User, { through: MemberSquad, foreignKey: 'squadId' });
 
 // Sync database
 sequelize.sync({ alter: true }).then(() => {
