@@ -1,11 +1,12 @@
-const { Squad } = require('../../utils/index')
+const { Squad, MemberSquad } = require('../../utils/index')
 
 class SquadService {   
 
-    async createSquad(squadData){
+    async createSquad(squadData, memberSquadData){
         const {name, squadHandle, description, publicSquad, active, picture, squadTypeId} = squadData
         const squad = await Squad.create({name, squadHandle, description, publicSquad, active, picture, squadTypeId})
-        return squad;
+        const memberSquad = await MemberSquad.create({...memberSquadData, squadId: squad.id})
+        return {squad, memberSquad};
     }
 
     async updateSquad(id, squadData){
