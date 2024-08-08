@@ -7,7 +7,8 @@ class SquadController{
     async createSquad (req, res){
         try{
             const {name, squadHandle, description, publicSquad, active, squadTypeId} = req.body
-            
+            const userId = req.user.userId; 
+            const memberSquadData = { userId, memberRole: 'admin'}
             const squadData = {
                 name, 
                 squadHandle, 
@@ -18,8 +19,8 @@ class SquadController{
                 squadTypeId
             }
 
-            const newSquad = await SquadService.createSquad(squadData);
-            res.status(201).json({message: 'Squad created successfully', newSquad})
+            const { newSquad , newMemberSquad }= await SquadService.createSquad(squadData, memberSquadData);
+            res.status(201).json({message: 'Squad created successfully', newSquad, newMemberSquad})
         }catch(error){
             console.log(error);
             res.status(500).json({ message: error.message })
