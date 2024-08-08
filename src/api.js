@@ -9,7 +9,7 @@ const memberSquadRouter = require('./features/memberSquad/memberSquadRouter')
 const commentRouter = require('./features/comments/commentRouter')
 const historyRouter = require('./features/history/historyRouter')
 const tagsRouter = require('./features/tags/tagsRouter')
-
+const voteRouter = require('./features/votes/voteRouter')
 
 const router = express();
 
@@ -23,7 +23,7 @@ router.use('/memberSquad', memberSquadRouter)
 router.use('/comments', commentRouter)
 router.use('/history', historyRouter)
 router.use('/tags', tagsRouter)
-
+router.use('/votes', voteRouter)
 
 
 module.exports = router;
