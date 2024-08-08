@@ -37,6 +37,15 @@ class PostController {
         }
     }
 
+    async getAllPosts(req, res) {
+        try {
+            const posts = await PostService.getAllPosts()
+            res.status(200).json(posts)
+        } catch (error) {
+            res.status(400).json({error : error.message})
+        }
+    }
+     
     async updatePost (req, res) {
         try {
             const post = await PostService.updatePost(req.params.postId, req.body)
