@@ -7,17 +7,30 @@ const Post = sequelize.define('Post', {
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
   },
-  thumbnail: DataTypes.STRING,
-  title: {
+  thumbnail: { 
     type: DataTypes.STRING,
+    allowNull: true,
+  },
+  content:{
+    type: DataTypes.TEXT,
     allowNull: false,
   },
-  content: DataTypes.TEXT,
+  title:{
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
   description: {
     type: DataTypes.STRING(255),
-    allowNull: false,
+    allowNull: true,
   },
-  link: DataTypes.STRING,
+  picture :  {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+  },
+  link: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
   userId: {
     type: DataTypes.UUID,
     allowNull: false,
