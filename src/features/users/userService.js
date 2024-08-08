@@ -17,23 +17,25 @@ class UserService {
     return user;
   }
 
-  async updateStudent(userId, studentData) {
-    const student = await Student.findOne({ where: { userId } });
-    if (!student) {
-      throw new Error('Student not found');
+  async updateUser(id, userData) {
+    const user = await User.findOne({ where: { id } });
+    if (!user) {
+      throw new Error('User not found');
     }
 
-    const user = await User.findOne({ where: { id: userId } });
-    if (studentData.email || studentData.password) {
-      if (studentData.email) user.email = studentData.email;
-      if (studentData.password) {
-        user.password = await bcrypt.hash(studentData.password, 10);
+    if (userData.password) {
+      const isSamePassword = await bcrypt.compare(userData.password, user.password);
+      if (isSamePassword) {
+        throw new Error('The new password must be different from the old one');
       }
-      await user.save();
+      userData.password = await bcrypt.hash(userData.password, 10);
     }
 
-    await student.update(studentData);
-    return { student, user };
+    // await user.update(userData);
+    Object.assign(user, userData);
+    await user.save();
+    
+    return user;
   }
 
   async deleteUser(id) {

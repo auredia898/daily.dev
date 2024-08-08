@@ -1,6 +1,7 @@
 const express = require('express')
 const UserController = require('./userController');
 const { verifyToken, verifyRole} = require('../../middleware/authMiddleware');
+const {uploadUser} = require('../../middleware/muter')
 
 const UserRouter = express.Router()
 
@@ -12,9 +13,7 @@ UserRouter.get('/get/profile', verifyToken, UserController.getProfile);
 
 UserRouter.get('/', UserController.getAllUsers);
 UserRouter.get('/:id', UserController.getUserByUserId);
-// UserRouter.put('/:userId',upload.single('profilePicture'), UserController.updateUser);
-
-// UserRouter.post('/enroll', validationEnrollInCourse, UserController.enrollInCourse)
+UserRouter.put('/', verifyToken, uploadUser,  UserController.updateUser);
 
 // UserRouter.use(verifyRole( ['ROLE_ADMIN'] ));
 

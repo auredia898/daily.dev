@@ -20,12 +20,30 @@ class UserController {
     }
   }
 
-  async updateStudent(req, res) {
+  async updateUser(req, res) {
     try {
-      const { userId } = req.params;
-      const studentData = req.body;
-      const { student, user } = await StudentService.updateStudent(userId, studentData);
-      res.status(200).json({ student, user });
+      const id = req.user.userId;
+      const { name, username, email, password, bio, company, jobTitle, experienceLevel } = req.body;
+
+      // Gestion des images
+      const profilePicture = req.files['profilePicture'] ? req.files['profilePicture'][0].path : null;
+      const coverPicture = req.files['coverPicture'] ? req.files['coverPicture'][0].path : null;
+
+      const userData = {
+        name,
+        username,
+        email,
+        password,
+        bio,
+        company,
+        jobTitle,
+        experienceLevel,
+        profilePicture,
+        coverPicture
+      };
+
+      const updatedUser = await UserService.updateUser(id, userData);
+      res.status(200).json({ message: 'User updated successfully!', user: updatedUser });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
