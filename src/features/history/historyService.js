@@ -7,16 +7,6 @@ class HistoryService {
         return history;
     }
 
-    async updateHistory(id, historyData) {
-        const history = await History.findOne({ where: { id } });
-        if (!history) {
-            throw new Error('History not found!');
-        }
-
-        history.set(historyData);
-        await history.save();
-        return history;
-    }
 
     async deleteHistory(id) {
         const history = await History.findOne({ where: { id } });
@@ -28,7 +18,7 @@ class HistoryService {
         return { message: 'History deleted successfully' };
     }
 
-    async getAllHistories() {
+    async getAllHistory() {
         return await History.findAll();
     }
 }

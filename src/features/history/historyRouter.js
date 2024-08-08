@@ -5,8 +5,7 @@ const { verifyToken } = require('../../middleware/authMiddleware');
 const router = express.Router();
 
 router.post('/', verifyToken, historyController.createHistory);
-router.put('/:id', verifyToken, historyController.updateHistory);
-router.get('/', verifyToken, historyController.getAllHistories);
+router.get('/', verifyToken, historyController.getAllHistory);
 router.delete('/:id', verifyToken, historyController.deleteHistory);
 
 module.exports = router;

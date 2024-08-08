@@ -4,7 +4,7 @@ class HistoryController {
     async createHistory(req, res) {
         try {
             const { postId } = req.body;
-            const userId = req.user.userId; // Assuming the user ID is set in the request object
+            const userId = req.user.userId;
 
             const historyData = {
                 userId,
@@ -19,18 +19,6 @@ class HistoryController {
         }
     }
 
-    async updateHistory(req, res) {
-        try {
-            const { id } = req.params;
-            const { userId, postId } = req.body;
-            const historyData = { userId, postId };
-            const updatedHistory = await HistoryService.updateHistory(id, historyData);
-            res.status(200).json(updatedHistory);
-        } catch (error) {
-            res.status(500).json({ message: error.message });
-        }
-    }
-
     async deleteHistory(req, res) {
         try {
             const { id } = req.params;
@@ -41,9 +29,9 @@ class HistoryController {
         }
     }
 
-    async getAllHistories(req, res) {
+    async getAllHistory(req, res) {
         try {
-            const histories = await HistoryService.getAllHistories();
+            const histories = await HistoryService.getAllHistory();
             res.status(200).json(histories);
         } catch (error) {
             res.status(500).json({ message: error.message });
