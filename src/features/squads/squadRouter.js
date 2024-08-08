@@ -1,6 +1,5 @@
 const express = require('express');
 const squadController = require('./squadController');
-// const upload = require('../../middleware/muter')
 const {uploadSquad} = require('../../middleware/muter')
 const router = express.Router();
 

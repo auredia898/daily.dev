@@ -6,8 +6,9 @@ class MemberSquadController{
 
     async createMemberSquad (req, res){
         try{
-            const {userId, squadId, memberRole} = req.body
-            
+            const {squadId, memberRole} = req.body
+            const userId = req.user.userId; 
+
             const memberSquadData = {
                 userId, 
                 memberRole, 
@@ -37,8 +38,8 @@ class MemberSquadController{
     async deleteMemberSquad(req, res){
         try{
             const { id } = req.params;
-            const deleteSquad = await SquadService.deleteSquad(id)
-            res.status(200).send(deleteSquad);
+            const deleteMemberSquad = await MemberSquadService.deleteMemberSquad(id);
+            res.status(200).send(deleteMemberSquad);
         }catch(error){
             res.status(404).json({ message: error.message})
         }
