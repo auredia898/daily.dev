@@ -15,7 +15,7 @@ const Squadstorage = new CloudinaryStorage({
 const Userstorage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: 'squads',
+        folder: 'Users',
         allowedFormats:['jpg', 'png'],
         public_id: (req, file) => `user_${Date.now()}`,
     },
