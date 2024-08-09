@@ -60,15 +60,19 @@ class PostService {
         }
     }
 
-    async getAllPosts() {
+    async getAllPosts(page = 1, limit = 12) {
         try {
-            const posts = await Post.findAll();
+            const offset = (page - 1) * limit;
+            const posts = await Post.findAll({
+                limit: limit,
+                offset: offset
+            });
             return posts;
         } catch (error) {
             throw new Error(`Error retrieving posts: ${error.message}`);
         }
     }
-
+    
     async updatePost(id, postData) {
         const post = await Post.findOne({ where: { id } });
         if (!post) {

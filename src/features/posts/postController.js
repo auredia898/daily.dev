@@ -54,7 +54,10 @@ class PostController {
 
     async getAllPosts(req, res) {
         try {
-            const posts = await PostService.getAllPosts()
+            const page = parseInt(req.query.page) || 1
+            const limit = 12
+
+            const posts = await PostService.getAllPosts(page, limit)
             res.status(200).json(posts)
         } catch (error) {
             res.status(400).json({error : error.message})
