@@ -4,15 +4,15 @@ const Bookmark = require('./bookmarksModel');
 
 class BookmarkService {
     
-    async createBookmark({userId, postId}) {
+    async createBookmark(bookmarkData) {
         try {
-            const user = await User.findByPk(userId);
+            const {postId} = bookmarkData
             const post = await Post.findByPk(postId);
-            if (!user || !post) {
-                throw new Error('User or Post not found');
+            if (!post) {
+                throw new Error('Post not found');
             }
 
-            const bookmark = await Bookmark.create({ userId, postId });
+            const bookmark = await Bookmark.create(bookmarkData);
             return bookmark;
         } catch (error) {
             console.log(error)

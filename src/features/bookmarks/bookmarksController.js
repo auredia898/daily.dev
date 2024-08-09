@@ -3,7 +3,15 @@ const BookmarkService = require('./bookmarksService')
 class BookmarkController {
     async createBookmark(req, res) {
         try {
-            const bookmark = await BookmarkService.createBookmark(req.body)
+            const { postId } = req.body
+            const userId = req.user.userId; 
+
+            const bookmarkData = {
+                postId,
+                userId
+            }
+
+            const bookmark = await BookmarkService.createBookmark(bookmarkData)
             res.status(201).json(bookmark)
         } catch (error) {
             res.status(400).json({error : error.message})
