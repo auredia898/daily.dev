@@ -43,10 +43,19 @@ class CommentService{
 
     async getAllComments(){
         return await Comment.findAll({ 
-            include: [ { 
-                model: Post, 
-                attributes: ['id', 'title', 'userId']
-             }] 
+            include: [
+                {
+                    model: Post,
+                    attributes: ['id', 'title', 'userId'],
+                    required: false
+                },
+                {
+                    model: Comment,
+                    as: 'parent',
+                    attributes: ['id', 'message', 'userId'],
+                    required: false, 
+                }
+            ]
         });
     }
 
