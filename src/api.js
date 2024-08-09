@@ -10,7 +10,7 @@ const commentRouter = require('./features/comments/commentRouter')
 const historyRouter = require('./features/history/historyRouter')
 const tagsRouter = require('./features/tags/tagsRouter')
 const voteRouter = require('./features/votes/voteRouter')
-// const bookmarkRouter = require('./features/bookmarks/bookmarksRouter')
+const bookmarkRouter = require('./features/bookmarks/bookmarksRouter')
 const postTagRouter = require('./features/postTags/postTagRouter')
 
 
@@ -30,5 +30,6 @@ router.use('/postTag', postTagRouter)
 router.use('/votes', voteRouter)
 
 // router.use('/boomaker', bookmarkRouter)
+router.use('/bookmarker', bookmarkRouter)
 
 module.exports = router;

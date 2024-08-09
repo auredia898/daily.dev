@@ -63,6 +63,16 @@ class MemberSquadController{
             res.status(500).json({ message: error.message})
         }
     }
+
+    async  getAllSquadsByUserId(req, res){
+        try{
+            const {id} = req.params;
+            const members = await MemberSquadService. getAllSquadsByUserId(id);
+            res.status(200).json(members);
+        }catch(error){
+            res.status(500).json({ message: error.message})
+        }
+    }
 }
 
 module.exports = new MemberSquadController();
