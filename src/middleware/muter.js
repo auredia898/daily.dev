@@ -30,9 +30,19 @@ const Commentstorage = new CloudinaryStorage({
     },
 });
 
+const Poststorage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'Posts',
+        allowedFormats:['jpg', 'png'],
+        public_id: (req, file) => `comment_${Date.now()}`,
+    },
+});
+
 
 const uploadSquad = multer({ storage: Squadstorage })
 const uploadComment = multer({ storage: Commentstorage })
+const uploadPost = multer({ storage: Poststorage })
 const uploadUser = multer({ 
     storage: Userstorage,
     limits: { fileSize: 10 * 1024 * 1024 }, 
@@ -44,5 +54,6 @@ const uploadUser = multer({
 module.exports = {
     uploadSquad,
     uploadComment,
+    uploadPost,
     uploadUser
 }

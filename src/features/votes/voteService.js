@@ -7,17 +7,24 @@ class VoteService{
 
         const { postId, commentId, userId } = voteData
 
-        const post = await Post.findOne( { where: { id: postId } });
-
-        if(!post){
-            throw new Error('Post not found!');
+        if (!postId && !commentId) {
+            throw new Error('Post ID or Comment ID is required!');
         }
 
-        const comment = await Comment.findOne( { where: { id: commentId } });
-
-        if(!comment){
-            throw new Error('Comment not found!');
+        if(postId){
+            const post = await Post.findOne( { where: { id: postId } });
+            if(!post){
+                throw new Error('Post not found!');
+            }
         }
+
+       if(commentId){
+            const comment = await Comment.findOne( { where: { id: commentId } });
+
+            if(!comment){
+                throw new Error('Comment not found!');
+            }
+       }
 
         let vote = await Vote.findOne({ 
             where: { 
@@ -47,6 +54,25 @@ class VoteService{
 
     async downvote(voteData) {
         const { postId, commentId, userId } = voteData;
+
+        if (!postId && !commentId) {
+            throw new Error('Post ID or Comment ID is required!');
+        }
+
+        if(postId){
+            const post = await Post.findOne( { where: { id: postId } });
+            if(!post){
+                throw new Error('Post not found!');
+            }
+        }
+
+       if(commentId){
+            const comment = await Comment.findOne( { where: { id: commentId } });
+
+            if(!comment){
+                throw new Error('Comment not found!');
+            }
+       }
 
         let vote = await Vote.findOne({ 
             where: { 
@@ -93,76 +119,69 @@ class VoteService{
                 },
                 {
                     model: Comment,
-                    attributes: ['id', 'content', 'userId'],
+                    attributes: ['id', 'message', 'userId'],
                     required: false, 
                 }
             ]
         });
     }
 
-    async getCommentById(id){
-        const comment = await Comment.findOne({
+    async getVoteById(id){
+        const vote = await Vote.findOne({
              where: {id},
-             include: [ { 
-                model: Post, 
-                attributes: ['id', 'title', 'userId']
-             }] 
+             include: [
+                {
+                    model: Post,
+                    attributes: ['id', 'title', 'userId'],
+                    required: false
+                },
+                {
+                    model: Comment,
+                    attributes: ['id', 'message', 'userId'],
+                    required: false, 
+                }
+            ]
         });
-        if (!comment){
-            throw new Error ('comment not found!') 
+        if (!vote){
+            throw new Error ('vote not found!') 
         }
-        return comment;
+        return vote;
     }
 
-    async getCommentByPostId(postId) {
-        const comments = await Comment.findAll({
+    async getVotesByPostId(postId) {
+        const votes = await Vote.findAll({
             where: { postId },
-            include: [{ model: Post, attributes: ['id', 'title', 'userId'] }]
+            include: [
+                {
+                    model: Post,
+                    attributes: ['id', 'title', 'userId'],
+                }
+            ]
         });
 
-        if (!comments) {
-            throw new Error('No comments found for this post!');
+        if (!votes) {
+            throw new Error('No votes found for this post!');
         }
 
-        return comments;
+        return votes;
     }
 
-    async getCommentByCommentId(commentId) {
-        const comments = await Comment.findAll({
-            where: { parentCommentId: commentId },
-            include: [{
-                model: Comment,
-                as: 'replies',
-                attributes: ['id', 'message', 'userId']
-            }]
+    async getVotesByCommentId(commentId) {
+        const votes = await Vote.findAll({
+            where: { commentId },
+            include: [
+                {
+                    model: Comment,
+                    attributes: ['id', 'message', 'userId'],
+                }
+            ]
         });
         
-        if (!comments) {
-            throw new Error('No replies found for this comment!');
+        if (!votes) {
+            throw new Error('No votes found for this comment!');
         }
 
-        return comments;
-    }
-
-    async updateComment(id, commentData) {
-        const comment = await Comment.findOne({ where: { id } });
-        if (!comment) {
-            throw new Error('Comment not found!');
-        }
-
-        const updatedFields = {};
-
-        if (commentData.message !== undefined) {
-            updatedFields.message = commentData.message;
-        }
-
-        if (commentData.picture !== undefined) {
-            updatedFields.picture = commentData.picture;
-        }
-
-        await comment.update(updatedFields);
-
-        return comment;
+        return votes;
     }
 
 }

@@ -53,62 +53,44 @@ class CommentController{
         }
     }
 
-    async getAllComments(req, res){
+    async getAllVotes(req, res){
         try{
-            const comments = await CommentService.getAllComments();
-            res.status(200).json(comments);
+            const votes = await VoteService.getAllVotes();
+            res.status(200).json(votes);
         }catch(error){
             res.status(500).json({ message: error.message})
         }
     }
 
-    async getCommentById(req, res){
+    async getVotesById(req, res){
         try{
             const { id } = req.params;
-            const comment = await CommentService.getCommentById(id);
-            res.status(200).json(comment);
+            const vote = await VoteService.getVoteById(id);
+            res.status(200).json(vote);
         }catch(error){
             res.status(404).json({ message: error.message})
         }
     }
 
-    async getCommentByPostId(req, res) {
+    async getVotesByPostId(req, res) {
         try {
             const { postId } = req.params;
-            const comments = await CommentService.getCommentByPostId(postId);
-            res.status(200).json(comments);
+            const votes = await VoteService.getVotesByPostId(postId);
+            res.status(200).json(votes);
         } catch (error) {
             console.log(error);
             res.status(404).json({ message: error.message });
         }
     }
 
-    async getCommentByCommentId(req, res) {
+    async getVotesByCommentId(req, res) {
         try {
             const { commentId } = req.params;
-            const comments = await CommentService.getCommentByCommentId(commentId);
-            res.status(200).json(comments);
+            const votes = await VoteService.getVotesByCommentId(commentId);
+            res.status(200).json(votes);
         } catch (error) {
             console.log(error);
             res.status(404).json({ message: error.message });
-        }
-    }
-
-    async updateComment(req, res) {
-        try {
-            const { id } = req.params;
-            const { message } = req.body;
-
-            const commentData = {
-                message,
-                picture: req.file? req.file.path : null, 
-            }
-            
-            const updatedComment = await CommentService.updateComment(id, commentData);
-            res.status(200).json({ message: 'Comment updated successfully!', updatedComment });
-        } catch (error) {
-            console.log(error);
-            res.status(500).json({ message: error.message });
         }
     }
 

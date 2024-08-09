@@ -36,6 +36,10 @@ class MemberSquadService {
     async getAllMembersBySquadId(squadId) {
         return await MemberSquad.findAll({ where: { squadId } });
     }
+
+    async getAllSquadsByUserId(userId) {
+        return await MemberSquad.findAll({ where: { userId } });
+    }
     
 }
 

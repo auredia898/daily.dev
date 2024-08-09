@@ -3,13 +3,37 @@ const PostService = require('./postService')
 class PostController {
     async createPost (req, res) {
         try {
-            const post = await PostService.createPost(req.body)
+
+            const { thumbnail, title, content, description, link, squadId } = req.body
+            const userId = req.user.userId; 
+            
+            const postData = {
+                thumbnail,
+                title,
+                content,
+                description,
+                link,
+                squadId,
+                picture: req.file? req.file.path : null, 
+                userId
+            }
+
+            const post = await PostService.createPost(postData)
             res.status(201).json(post)
         } catch (error) {
             res.status(400).json({error : error.message})
         }
     }
 
+    // async createPost (req, res) {
+    //     try {
+    //         const post = await PostService.createPost(req.body)
+    //         res.status(201).json(post)
+    //     } catch (error) {
+    //         res.status(400).json({error : error.message})
+    //     }
+    // }
+    
     async getPostsBySquad (req, res) {
         try {
             const posts = await PostService.getPostsBySquad(req.params.squadId)
@@ -46,12 +70,35 @@ class PostController {
         }
     }
      
-    async updatePost (req, res) {
+    // async updatePost (req, res) {
+    //     try {
+    //         const post = await PostService.updatePost(req.params.postId, req.body)
+    //         res.status(200).json(post)
+    //     } catch (error) {
+    //         res.status(400).json({error : error.message})
+    //     }
+    // }
+
+    async updatePost(req, res) {
         try {
-            const post = await PostService.updatePost(req.params.postId, req.body)
-            res.status(200).json(post)
+            const id = req.params.id;
+            const { title, content, description, link, thumbnail } = req.body;
+
+            const picture = req.file ? req.file.path : null;
+
+            const postData = {
+                title,
+                content,
+                description,
+                link,
+                thumbnail,
+                picture
+            };
+
+            const updatedPost = await PostService.updatePost(id, postData);
+            res.status(200).json({ message: 'Post updated successfully!', post: updatedPost });
         } catch (error) {
-            res.status(400).json({error : error.message})
+            res.status(400).json({ error: error.message });
         }
     }
 
