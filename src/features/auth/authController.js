@@ -30,9 +30,9 @@ class AuthController {
     try {
       const { email, password } = req.body;
 
-      const { token } = await AuthService.login(email, password);
+      const { token, user } = await AuthService.login(email, password);
 
-      res.status(200).json({ token })
+      res.status(200).json({ token, user })
     } catch (error) {
         res.status(401).json({error: 'Authentication failed!'})
     }
