@@ -52,6 +52,8 @@ Post.belongsToMany(User, { through: HidePost, foreignKey: 'postId' });
 // Post and Tag
 Post.belongsToMany(Tag, { through: PostTag, foreignKey: 'postId' });
 Tag.belongsToMany(Post, { through: PostTag, foreignKey: 'tagId' });
+PostTag.belongsTo(Tag, { foreignKey: 'tagId'});
+
 
 // User and Bookmark
 User.belongsToMany(Post, { through: Bookmark, foreignKey: 'userId' });

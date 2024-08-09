@@ -25,15 +25,6 @@ class PostController {
         }
     }
 
-    // async createPost (req, res) {
-    //     try {
-    //         const post = await PostService.createPost(req.body)
-    //         res.status(201).json(post)
-    //     } catch (error) {
-    //         res.status(400).json({error : error.message})
-    //     }
-    // }
-    
     async getPostsBySquad (req, res) {
         try {
             const posts = await PostService.getPostsBySquad(req.params.squadId)
@@ -69,15 +60,6 @@ class PostController {
             res.status(400).json({error : error.message})
         }
     }
-     
-    // async updatePost (req, res) {
-    //     try {
-    //         const post = await PostService.updatePost(req.params.postId, req.body)
-    //         res.status(200).json(post)
-    //     } catch (error) {
-    //         res.status(400).json({error : error.message})
-    //     }
-    // }
 
     async updatePost(req, res) {
         try {
