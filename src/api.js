@@ -12,6 +12,7 @@ const tagsRouter = require('./features/tags/tagsRouter')
 const voteRouter = require('./features/votes/voteRouter')
 const bookmarkRouter = require('./features/bookmarks/bookmarksRouter')
 const postTagRouter = require('./features/postTags/postTagRouter')
+const typeOfSocialMediaRouter = require('./features/typeOfSocialMedia/TypeOfSocialMediaRouter')
 const postTagsUsersRouter = require('./features/postTagsUsers/postTagsUsersRouter')
 
 const router = express();
@@ -29,8 +30,7 @@ router.use('/tags', tagsRouter)
 router.use('/postTag', postTagRouter)
 router.use('/votes', voteRouter)
 router.use('/postTagsUsers', postTagsUsersRouter)
-
-// router.use('/boomaker', bookmarkRouter)
 router.use('/bookmarker', bookmarkRouter)
+router.use('/typeOfSocialMedia', typeOfSocialMediaRouter)
 
 module.exports = router;
