@@ -21,16 +21,6 @@ class PostTagService {
         return postTags;
     }
 
-    // async updateMemberSquad(id, memberSquadData){
-    //     const memberSquad = await MemberSquad.findOne({ where: { id } })
-    //     if(!memberSquad){
-    //         throw new Error ('Type of Squad not found!')        
-    //     }
-        
-    //     memberSquad.set(memberSquadData);
-    //     await memberSquad.save();
-    //     return memberSquad;
-    // }
 
     // async deleteMemberSquad(id){
     //     const memberSquad = await MemberSquad.findOne({ where: { id } })
@@ -46,9 +36,18 @@ class PostTagService {
         return await PostTag.findAll();
     }
 
-    // async getAllMembersBySquadId(squadId) {
-    //     return await MemberSquad.findAll({ where: { squadId } });
-    // }
+    async getAllTagsByPostId(postId) {
+        return await PostTag.findAll({
+            where: { postId },
+            include: [
+                {
+                    model: Tag,
+                    attributes: ['id', 'name'],
+                }
+            ]
+        });
+    }
+    
     
 }
 

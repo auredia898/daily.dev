@@ -21,17 +21,6 @@ class PostTagController{
         }
     }
 
-    // async updateMemberSquad(req, res){
-    //     try{
-    //         const { id } = req.params;
-    //         const {userId, squadId, memberRole} = req.body
-    //         const memberSquadData = { userId, squadId, memberRole}
-    //         const updateMemberSquad = await MemberSquadService.updateMemberSquad(id, memberSquadData);
-    //         res.status(200).json(updateMemberSquad);
-    //     }catch(error){
-    //         res.status(500).json({ message: error.message })
-    //     }
-    // }
 
     // async deleteMemberSquad(req, res){
     //     try{
@@ -52,15 +41,15 @@ class PostTagController{
         }
     }
 
-    // async getAllMembersBySquadId(req, res){
-    //     try{
-    //         const {id} = req.params;
-    //         const members = await MemberSquadService.getAllMembersBySquadId(id);
-    //         res.status(200).json(members);
-    //     }catch(error){
-    //         res.status(500).json({ message: error.message})
-    //     }
-    // }
+    async getAllTagsByPostId(req, res) {
+        try {
+            const {id} = req.params;
+            const tags = await PostTagService.getAllTagsByPostId(id);
+            res.status(200).json(tags);
+        } catch (error) {
+            res.status(500).json({message: error.message});
+        }
+    }
 }
 
 module.exports = new PostTagController();
