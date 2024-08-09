@@ -13,14 +13,20 @@ const Comment = sequelize.define('Comment', {
   },
   postId: {
     type: DataTypes.UUID,
-    allowNull: false,
+    allowNull: true,
   },
-  parentCommentId: DataTypes.UUID,
+  parentCommentId: {
+    type: DataTypes.UUID,
+    allowNull: true
+  },
   message: {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  picture: DataTypes.STRING,
+  picture: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 }, {
   tableName: 'comments',
   timestamps: true,

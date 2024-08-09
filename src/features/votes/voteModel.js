@@ -13,13 +13,16 @@ const Vote = sequelize.define('Vote', {
   },
   postId: {
     type: DataTypes.UUID,
-    allowNull: false,
+    allowNull: true,
   },
   userId: {
     type: DataTypes.UUID,
     allowNull: false,
   },
-  commentId: DataTypes.UUID,
+  commentId: {
+    type: DataTypes.UUID,
+    allowNull: true,
+  },
 }, {
   tableName: 'votes',
   timestamps: true,

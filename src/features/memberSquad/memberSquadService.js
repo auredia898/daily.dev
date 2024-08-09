@@ -29,10 +29,14 @@ class MemberSquadService {
 
     }
 
-    async getMemberSquads(){
+    async getAllMemberSquads(){
         return await MemberSquad.findAll();
     }
 
+    async getAllMembersBySquadId(squadId) {
+        return await MemberSquad.findAll({ where: { squadId } });
+    }
+    
 }
 
 module.exports = new MemberSquadService();
