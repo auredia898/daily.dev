@@ -23,9 +23,6 @@ router.use('/typeSquad', typeSquadRouter)
 router.use('/squad', squadRouter)
 router.use('/post', postRouter)
 router.use('/memberSquad', memberSquadRouter)
-<<<<<<<<< Temporary merge branch 1
-router.use('/bookmarker', bookmarkRouter)
-=========
 router.use('/comments', commentRouter)
 router.use('/history', historyRouter)
 router.use('/tags', tagsRouter)
@@ -33,6 +30,6 @@ router.use('/postTag', postTagRouter)
 router.use('/votes', voteRouter)
 
 // router.use('/boomaker', bookmarkRouter)
->>>>>>>>> Temporary merge branch 2
+router.use('/bookmarker', bookmarkRouter)
 
 module.exports = router;

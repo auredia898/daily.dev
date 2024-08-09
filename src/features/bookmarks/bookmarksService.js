@@ -4,7 +4,7 @@ const Bookmark = require('./bookmarksModel');
 
 class BookmarkService {
     
-    async createBookmark(userId, postId) {
+    async createBookmark({userId, postId}) {
         try {
             const user = await User.findByPk(userId);
             const post = await Post.findByPk(postId);
@@ -15,6 +15,7 @@ class BookmarkService {
             const bookmark = await Bookmark.create({ userId, postId });
             return bookmark;
         } catch (error) {
+            console.log(error)
             throw new Error(`Error creating bookmark: ${error.message}`);
         }
     }
@@ -43,6 +44,7 @@ class BookmarkService {
             const bookmarks = await Bookmark.findAll({ where: { postId } });
             return bookmarks;
         } catch (error) {
+            console.log(error)
             throw new Error(`Error retrieving bookmarks: ${error.message}`);
         }
     }

@@ -21,7 +21,7 @@ class BookmarkController {
 
     async getBookmarksByPost(req, res) {
         try {
-            const bookmarks = await BookmarkService.getBookmarksByPost(req.params.userId)
+            const bookmarks = await BookmarkService.getBookmarksByPost(req.params.postId)
             res.status(200).json(bookmarks)
         } catch (error) {
             res.status(400).json({error : error.message})
