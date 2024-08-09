@@ -2,6 +2,11 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/db');
 
 const CommentTagsUsers = sequelize.define('CommentTagsUsers', {
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true,
+  },
   commentId: {
     type: DataTypes.UUID,
     allowNull: false,
