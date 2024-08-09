@@ -44,6 +44,17 @@ class TagsController{
             res.status(500).json({ message: error.message})
         }
     }
+
+    async getTagByName(req, res) {
+        try {
+            const { name } = req.params;
+            const tag = await TagsService.getTagByName(name);
+            res.status(200).json(tag);
+        } catch (error) {
+            res.status(404).json({ message: error.message });
+        }
+    }
+
 }
 
 module.exports = new TagsController();

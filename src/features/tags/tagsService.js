@@ -30,6 +30,14 @@ class TagsService {
     async getAllTag(){
         return await Tag.findAll();
     }
+
+    async getTagByName(name) {
+        const tag = await Tag.findOne({ where: { name } });
+        if (!tag) {
+            throw new Error('Tag not found!');
+        }
+        return tag;
+    }
 }
 
 module.exports = new TagsService();
