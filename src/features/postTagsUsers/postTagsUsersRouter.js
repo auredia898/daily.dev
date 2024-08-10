@@ -7,6 +7,5 @@ const router = express.Router();
 router.post('/', verifyToken, postsTagsUsersController.createPostsTagsUsers);
 router.put('/:id', verifyToken, postsTagsUsersController.updatePostsTagsUsers);
 router.get('/:name', verifyToken, postsTagsUsersController.getUsersByUsername);
-// router.delete('/:id', verifyToken, postsTagsUsersController.deletePostsTagsUsers);
 
 module.exports = router;
