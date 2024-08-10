@@ -16,12 +16,14 @@ class SocialMediaLinksService {
         return await SocialMediaLinks.findAll();
     }
     
-    async  updateSocialMediaLink(id, data) {
-        const socialMediaLink = await getSocialMediaLinkById(id);
-        if (socialMediaLink) {
-            return await socialMediaLink.update(data);
+    async  updateSocialMediaLink(id, socialMediaLinkData) {
+        const socialMediaLink = await SocialMediaLinks.findOne({ where: { id } })
+        if (!socialMediaLink) {
+            throw new Error('Social Media Link not found');
         }
-        throw new Error('Social Media Link not found');
+        socialMediaLink.set(socialMediaLinkData);
+        await socialMediaLink.save();
+        return socialMediaLink;
     }
     
     // async  deleteSocialMediaLink(id) {

@@ -41,16 +41,18 @@ class SocialMediaLinksController {
     }
 
     
-    // async  updateSocialMediaLink(req, res) {
-    //     try {
-    //         const { id } = req.params;
-    //         const data = req.body;
-    //         const updatedLink = await SocialMediaLinksService.updateSocialMediaLink(id, data);
-    //         res.status(200).json(updatedLink);
-    //     } catch (error) {
-    //         res.status(500).json({ message: error.message });
-    //     }
-    // }
+    async  updateSocialMediaLink(req, res) {
+        try {
+            const { id } = req.params;
+            const { typeOfSocialMediaId, link } = req.body;
+            const socialMediaLinkData = {typeOfSocialMediaId, link}
+            const updatedLink = await SocialMediaLinksService.updateSocialMediaLink(id, socialMediaLinkData);
+            res.status(200).json(updatedLink);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    }
+
     
     // async  deleteSocialMediaLink(req, res) {
     //     try {
