@@ -8,10 +8,10 @@ router.post('/', verifyToken, SocialMediaLinksController.createSocialMediaLink);
 
 router.get('/', verifyToken, SocialMediaLinksController.getAllSocialMediaLinks);
 
-// router.get('/:id', TypeOfSocialMediaController.getTypeOfSocialMediaById);
+router.get('/:id', verifyToken, SocialMediaLinksController.getSocialMediaLinkById);
 
-// router.put('/:id', TypeOfSocialMediaController.updateTypeOfSocialMedia);
+router.put('/:id', verifyToken, SocialMediaLinksController.updateSocialMediaLink);
 
-// router.delete('/:id', TypeOfSocialMediaController.deleteTypeOfSocialMedia);
+router.delete('/:id', verifyToken, SocialMediaLinksController.deleteSocialMediaLink);
 
 module.exports = router;
