@@ -14,6 +14,7 @@ const bookmarkRouter = require('./features/bookmarks/bookmarksRouter')
 const postTagRouter = require('./features/postTags/postTagRouter')
 const typeOfSocialMediaRouter = require('./features/typeOfSocialMedia/TypeOfSocialMediaRouter')
 const postTagsUsersRouter = require('./features/postTagsUsers/postTagsUsersRouter')
+const commentRouter = require('./features/commentTagsUsers/commentTageRouter')
 
 const router = express();
 
@@ -32,5 +33,6 @@ router.use('/votes', voteRouter)
 router.use('/postTagsUsers', postTagsUsersRouter)
 router.use('/bookmarker', bookmarkRouter)
 router.use('/typeOfSocialMedia', typeOfSocialMediaRouter)
+router.use('/comment-tags', commentRouter)
 
 module.exports = router;
