@@ -17,19 +17,19 @@ class SocialMediaLinksController {
         }
     }
     
-    // async  getSocialMediaLinkById(req, res) {
-    //     try {
-    //         const { id } = req.params;
-    //         const link = await SocialMediaLinksService.getSocialMediaLinkById(id);
-    //         if (link) {
-    //             res.status(200).json(link);
-    //         } else {
-    //             res.status(404).json({ message: 'Social Media Link not found' });
-    //         }
-    //     } catch (error) {
-    //         res.status(500).json({ message: error.message });
-    //     }
-    // }
+    async  getSocialMediaLinkById(req, res) {
+        try {
+            const { id } = req.params;
+            const link = await SocialMediaLinksService.getSocialMediaLinkById(id);
+            if (link) {
+                res.status(200).json(link);
+            } else {
+                res.status(404).json({ message: 'Social Media Link not found' });
+            }
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    }
     
     async  getAllSocialMediaLinks(req, res) {
         try {
@@ -54,15 +54,15 @@ class SocialMediaLinksController {
     }
 
     
-    // async  deleteSocialMediaLink(req, res) {
-    //     try {
-    //         const { id } = req.params;
-    //         await SocialMediaLinksService.deleteSocialMediaLink(id);
-    //         res.status(204).json({ message: 'Social Media Link deleted' });
-    //     } catch (error) {
-    //         res.status(500).json({ message: error.message });
-    //     }
-    // }
+    async  deleteSocialMediaLink(req, res) {
+        try {
+            const { id } = req.params;
+            const socialMediaLink = await SocialMediaLinksService.deleteSocialMediaLink(id);
+            res.status(204).json(socialMediaLink);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    }
 }
 
 module.exports = new SocialMediaLinksController();

@@ -17,6 +17,7 @@ const CommentTagsUsers = require('../features/commentTagsUsers/commentTagsUserMo
 const PostsTagsUsers = require('../features/postTagsUsers/postTagsUsersModel');
 const History = require('../features/history/historyModel');
 const Subscription = require('../features/subscriptions/subscriptionModel');
+const { FORCE } = require('sequelize/lib/index-hints');
 // const Notification = require('./Notification');
 
 // Relations

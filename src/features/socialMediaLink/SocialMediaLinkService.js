@@ -8,9 +8,9 @@ class SocialMediaLinksService {
         return socialMediaLink;
     }
     
-    // async  getSocialMediaLinkById(id) {
-    //     return await SocialMediaLinks.findByPk(id);
-    // }
+    async  getSocialMediaLinkById(id) {
+        return await SocialMediaLinks.findByPk(id);
+    }
     
     async  getAllSocialMediaLinks() {
         return await SocialMediaLinks.findAll();
@@ -26,13 +26,14 @@ class SocialMediaLinksService {
         return socialMediaLink;
     }
     
-    // async  deleteSocialMediaLink(id) {
-    //     const socialMediaLink = await getSocialMediaLinkById(id);
-    //     if (socialMediaLink) {
-    //         return await socialMediaLink.destroy();
-    //     }
-    //     throw new Error('Social Media Link not found');
-    // }
+    async  deleteSocialMediaLink(id) {
+        const socialMediaLink = await SocialMediaLinks.findOne({where: {id}});
+        if (!socialMediaLink) {
+            throw new Error('Social Media Link not found');
+        }
+        await socialMediaLink.destroy();
+        return { message: 'social Media Link deleted successfully' };
+    }
 }
 
 module.exports = new SocialMediaLinksService();

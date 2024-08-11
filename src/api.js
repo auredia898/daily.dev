@@ -16,6 +16,7 @@ const typeOfSocialMediaRouter = require('./features/typeOfSocialMedia/TypeOfSoci
 const postTagsUsersRouter = require('./features/postTagsUsers/postTagsUsersRouter')
 const socialMediaLinksRouter = require('./features/socialMediaLink/SocialMediaLinkRouter');
 const commentRouter = require('./features/commentTagsUsers/commentTageRouter')
+const subscriptionRouter = require('./features/subscriptions/subscriptionRouter');
 
 const router = express();
 
@@ -36,5 +37,6 @@ router.use('/bookmarker', bookmarkRouter)
 router.use('/typeOfSocialMedia', typeOfSocialMediaRouter)
 router.use('/socialMediaLinks', socialMediaLinksRouter);
 router.use('/comment-tags', commentRouter)
+router.use('/subscriptions', subscriptionRouter)
 
 module.exports = router;
