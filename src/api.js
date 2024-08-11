@@ -6,7 +6,6 @@ const typeSquadRouter = require('./features/squadType/squadTypeRouter');
 const squadRouter = require('./features/squads/squadRouter');
 const postRouter = require('./features/posts/postRoute')
 const memberSquadRouter = require('./features/memberSquad/memberSquadRouter')
-const commentRouter = require('./features/comments/commentRouter')
 const historyRouter = require('./features/history/historyRouter')
 const tagsRouter = require('./features/tags/tagsRouter')
 const voteRouter = require('./features/votes/voteRouter')
