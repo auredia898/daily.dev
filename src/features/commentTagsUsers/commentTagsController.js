@@ -1,4 +1,4 @@
-const CommentTagService = require('./commentTagService');
+const CommentTagService = require('./commentTagsService');
 
 class CommentTagController {
     async tagUsers(req, res) {
