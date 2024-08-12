@@ -68,11 +68,12 @@ class AuthController {
             const { email, otpToken, newPassword } = req.body;
             const decoded = jwt.verify(otpToken, process.env.SECRET_KEY);
 
+            console.log(decoded)
             if (decoded.email !== email) {
                 throw new Error('Invalid token');
             }
 
-            await AuthService.changePassword(email, newPassword);
+            await AuthService.forgotPassword(email, newPassword);
 
             res.status(200).json({ success: true, message: 'Password changed successfully' });
         } catch (error) {
