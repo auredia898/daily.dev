@@ -33,7 +33,7 @@ class PostsTagsUsersService {
                 } 
             } 
         });
-        if (users.lenght === 0) {
+        if (users.length === 0) {
             throw new Error('No users found with the provided username!');
         }
         return users;

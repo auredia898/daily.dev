@@ -1,6 +1,8 @@
 const { CommentTagsUsers, User } = require('../../utils/index');
+const { Op } = require('sequelize');
 
 class CommentTagService {
+
     async tagUsers(commentTagData) {
         const { commentId, usernames } = commentTagData;
 
@@ -14,6 +16,7 @@ class CommentTagService {
 
             const newTag = await CommentTagsUsers.create({
                 commentId,
+                userId: user.id,
                 username
             });
 
@@ -23,18 +26,20 @@ class CommentTagService {
         return tags;
     }
 
-    // async searchUsernames(query) {
-    //     const users = await User.findAll({
-    //         where: {
-    //             username: {
-    //                 [Op.like]: %${query}%
-    //             }
-    //         },
-    //         attributes: ['id', 'username']
-    //     });
+    async searchUsernames(username) {
+        const users = await User.findAll({ 
+            where: { 
+                username: {
+                    [Op.like]: `${username}%`
+                } 
+            } 
+        });
+        if (users.length === 0) {
+            throw new Error('No users found with the provided username!');
+        }
+        return users;
+    }
 
-    //     return users;
-    // }
 }
 
 module.exports = new CommentTagService();
