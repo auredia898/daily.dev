@@ -31,8 +31,8 @@ class PostsTagsUsersController {
     async getUsersByUsername(req, res) {
         try {
             const { username } = req.params;
-            const user = await postTagsUsersService.getUsersByUsername(username);
-            res.status(200).json(user);
+            const users = await postTagsUsersService.getUsersByUsername(username);
+            res.status(200).json(users);
         } catch (error) {
             res.status(404).json({ message: error.message });
         }

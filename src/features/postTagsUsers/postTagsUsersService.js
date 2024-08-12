@@ -1,4 +1,6 @@
 const { PostsTagsUsers, User} = require('../../utils/index')
+const { Op } = require('sequelize');
+
 
 class PostsTagsUsersService {
 
@@ -24,11 +26,17 @@ class PostsTagsUsersService {
     }
 
     async getUsersByUsername(username) {
-        const user = await User.findOne({ where: { username } });
-        if (!user) {
-            throw new Error('User not found!');
+        const users = await User.findAll({ 
+            where: { 
+                username: {
+                    [Op.like]: `${username}%`
+                } 
+            } 
+        });
+        if (users.lenght === 0) {
+            throw new Error('No users found with the provided username!');
         }
-        return user;
+        return users;
     }
 
 }
