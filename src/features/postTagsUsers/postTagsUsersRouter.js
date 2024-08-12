@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post('/', verifyToken, postsTagsUsersController.createPostsTagsUsers);
 router.put('/:id', verifyToken, postsTagsUsersController.updatePostsTagsUsers);
-router.get('/:name', verifyToken, postsTagsUsersController.getUsersByUsername);
+router.get('/:username', verifyToken, postsTagsUsersController.getUsersByUsername);
 
 module.exports = router;

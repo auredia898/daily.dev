@@ -21,7 +21,7 @@ class AuthController {
               const errorMessage = error.details.map((detail) => detail.message).join('; ');
               res.status(400).json({ error: errorMessage });
             } else {
-                res.status(400).json({ error: error.message });
+                res.status(500).json({ error: error.message });
             }    
         }
     }
