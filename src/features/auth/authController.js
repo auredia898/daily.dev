@@ -21,7 +21,7 @@ class AuthController {
               const errorMessage = error.details.map((detail) => detail.message).join('; ');
               res.status(400).json({ error: errorMessage });
             } else {
-                res.status(400).json({ error: error.message });
+                res.status(500).json({ error: error.message });
             }    
         }
     }
@@ -68,11 +68,12 @@ class AuthController {
             const { email, otpToken, newPassword } = req.body;
             const decoded = jwt.verify(otpToken, process.env.SECRET_KEY);
 
+            console.log(decoded)
             if (decoded.email !== email) {
                 throw new Error('Invalid token');
             }
 
-            await AuthService.changePassword(email, newPassword);
+            await AuthService.forgotPassword(email, newPassword);
 
             res.status(200).json({ success: true, message: 'Password changed successfully' });
         } catch (error) {

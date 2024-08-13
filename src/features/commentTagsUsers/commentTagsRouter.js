@@ -1,5 +1,5 @@
 const express = require('express')
-const CommentTagController = require('./commentTagController')
+const CommentTagController = require('./commentTagsController')
 const router = express.Router()
 const { verifyToken, verifyRole} = require('../../middleware/authMiddleware');
 

@@ -34,8 +34,8 @@ const Poststorage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
         folder: 'Posts',
-        allowedFormats:['jpg', 'png'],
-        public_id: (req, file) => `comment_${Date.now()}`,
+        allowedFormats:['jpg', 'png','jpeg'],
+        public_id: (req, file) => `post_${Date.now()}`,
     },
 });
 

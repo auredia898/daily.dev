@@ -11,7 +11,7 @@ const SocialMediaLinks = sequelize.define('SocialMediaLinks', {
     type: DataTypes.UUID,
     allowNull: false,
   },
-  typeOfSocialMedia: {
+  typeOfSocialMediaId: {
     type: DataTypes.UUID,
     allowNull: false,
   },

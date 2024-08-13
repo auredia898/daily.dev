@@ -5,18 +5,18 @@ const {uploadUser} = require('../../middleware/muter')
 
 const UserRouter = express.Router()
 
-// UserRouter.use(verifyToken);
+UserRouter.use(verifyToken);
 
-UserRouter.get('/get/profile', verifyToken, UserController.getProfile);
+UserRouter.use(verifyRole( ['user', 'admin'] ));
 
-// UserRouter.use(verifyRole( ['ROLE_User'] ));
+UserRouter.get('/get/profile', UserController.getProfile);
+UserRouter.put('/', uploadUser,  UserController.updateUser);
+UserRouter.delete('/:id', UserController.deleteUser);
+
+UserRouter.use(verifyRole( ['admin'] ));
 
 UserRouter.get('/', UserController.getAllUsers);
 UserRouter.get('/:id', UserController.getUserByUserId);
-UserRouter.put('/', verifyToken, uploadUser,  UserController.updateUser);
 
-// UserRouter.use(verifyRole( ['ROLE_ADMIN'] ));
-
-UserRouter.delete('/:id', UserController.deleteUser);
 
 module.exports = UserRouter; 

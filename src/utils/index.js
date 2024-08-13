@@ -7,7 +7,7 @@ const SquadType = require('../features/squadType/squadTypeModel');
 const Squad = require('../features/squads/squadModel');
 const MemberSquad = require('../features/memberSquad/memberSquadModel');
 const Post = require('../features/posts/postModel');
-const HidePost = require('../features/hidePost/hidePost');
+const HidePost = require('../features/hidePost/hidePostModel');
 const Tag = require('../features/tags/tagsModel');
 const PostTag = require('../features/postTags/postTagsModel');
 const Bookmark = require('../features/bookmarks/bookmarksModel');
@@ -17,6 +17,7 @@ const CommentTagsUsers = require('../features/commentTagsUsers/commentTagsUserMo
 const PostsTagsUsers = require('../features/postTagsUsers/postTagsUsersModel');
 const History = require('../features/history/historyModel');
 const Subscription = require('../features/subscriptions/subscriptionModel');
+const { FORCE } = require('sequelize/lib/index-hints');
 // const Notification = require('./Notification');
 
 // Relations
