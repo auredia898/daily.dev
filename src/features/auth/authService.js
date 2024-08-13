@@ -10,8 +10,8 @@ class AuthService {
     async register(userData) {
         const { name, username, email, password, experienceLevel } = userData;
         const hashedPassword = await bcrypt.hash(password, 10);
-    
-        const finalUsername = username || generateUsername(name);
+
+        const finalUsername = username ||  await generateUsername(name);
 
         const newUser = await User.create({
             name,

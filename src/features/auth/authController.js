@@ -1,5 +1,5 @@
 const AuthService = require('./authService');
-const {authSchema} = require('../../validators/authValidator')
+const {authSchema} = require('../../validators/userValidator')
 const jwt = require('jsonwebtoken');
 
 class AuthController {
