@@ -5,11 +5,11 @@ class PostsTagsUsersController {
 
     async createPostsTagsUsers(req, res) {
         try {
-            const { postId, userId } = req.body;
+            const { postId, usernames } = req.body;
 
-            const postTagsUsersData = { postId, userId };
+            const postTagsUsersData = { postId, usernames };
             const newPostsTagsUsers = await PostsTagsUsersService.createPostsTagsUsers(postTagsUsersData);
-            res.status(201).json({ message: 'Association created successfully', newPostsTagsUsers });
+            res.status(201).json({ message: 'Users tagged successfully!', newPostsTagsUsers });
         } catch (error) {
             console.log(error);
             res.status(500).json({ message: error.message });

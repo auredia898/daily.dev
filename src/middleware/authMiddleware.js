@@ -27,7 +27,17 @@ const verifyRole = (roles)=> {
     }
 };
 
+const verifyMemberRole = (roles)=> {
+    return(req, res, next)=> {
+        if(!req.memberSquad || !roles.includes(req.memberSquad.role)){
+            return res.status(403).json({error: 'Access denied!'})
+        }
+        next();
+    }
+};
+
 module.exports = {
     verifyToken,
     verifyRole,
+    verifyMemberRole
 }
