@@ -38,7 +38,7 @@ class BookmarkController {
     
     async deleteBookmark (req, res) {
         try {
-            const result = await BookmarkService.deleteBookmark(req.params.userId, req.params.postId)
+            const result = await BookmarkService.deleteBookmark(req.user.userId, req.params.postId)
             res.status(200).json(result)
         } catch (error) {
             res.status(400).json({error : error.message})
