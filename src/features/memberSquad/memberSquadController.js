@@ -66,8 +66,8 @@ class MemberSquadController{
 
     async  getAllSquadsByUserId(req, res){
         try{
-            const {id} = req.params;
-            const members = await MemberSquadService. getAllSquadsByUserId(id);
+            const userId = req.user.userId; 
+            const members = await MemberSquadService.getAllSquadsByUserId(userId);
             res.status(200).json(members);
         }catch(error){
             res.status(500).json({ message: error.message})

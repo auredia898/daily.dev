@@ -5,14 +5,25 @@ const { Op } = require('sequelize');
 class PostsTagsUsersService {
 
     async createPostsTagsUsers(postTagsUsersData) {
-        const { postId, userId } = postTagsUsersData;
-        const user = await User.findOne({where: {id: userId}});
-        if(!user){
-            throw new Error('User not found');
+        const { postId, usernames } = postTagsUsersData;
+        const tagsUsers = [];
+
+        for (const username of usernames) {
+            const user = await User.findOne({ where: { username } });
+            if (!user) {
+                throw new Error(`User not found for username: ${username}`);
+            }
+
+            const newtagUser = await PostsTagsUsers.create({
+                postId,
+                userId: user.id,
+                username
+            });
+
+            tagsUsers.push(newtagUser);
         }
 
-        const postsTagsUsers = await PostsTagsUsers.create({ postId, userId, username: user.username });
-        return postsTagsUsers;
+        return tagsUsers;
     }
 
     async updatePostsTagsUsers(id, postTagsUsersData) {

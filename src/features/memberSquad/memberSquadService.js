@@ -1,4 +1,4 @@
-const { MemberSquad } = require('../../utils/index')
+const { MemberSquad, Squad , User} = require('../../utils/index')
 
 class MemberSquadService {   
 
@@ -38,7 +38,21 @@ class MemberSquadService {
     }
 
     async getAllSquadsByUserId(userId) {
-        return await MemberSquad.findAll({ where: { userId } });
+        return await MemberSquad.findAll({
+             where: {  userId } ,
+            //  include: [
+            //     {
+            //         model: Squad,
+            //         attributes: ['id', 'name'],
+            //         required: false
+            //     },
+            //     {
+            //         model: User,
+            //         attributes: ['id', 'username'],
+            //         required: false, 
+            //     }
+            // ]
+        } );
     }
     
 }

@@ -34,8 +34,8 @@ Squad.belongsTo(SquadType, { foreignKey: 'squadTypeId' });
 SquadType.hasMany(Squad, { foreignKey: 'squadTypeId', onDelete: 'CASCADE'});
 
 // User and MemberSquad
-User.belongsToMany(Squad, { through: MemberSquad, foreignKey: 'userId' });
-Squad.belongsToMany(User, { through: MemberSquad, foreignKey: 'squadId' });
+User.belongsToMany(Squad, { through: MemberSquad, foreignKey: 'userId',  otherKey: 'squadId'  });
+Squad.belongsToMany(User, { through: MemberSquad, foreignKey: 'squadId',  otherKey: 'userId' });
 
 // Post and User
 User.hasMany(Post, { foreignKey: 'userId' })
