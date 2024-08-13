@@ -68,7 +68,6 @@ class AuthController {
             const { email, otpToken, newPassword } = req.body;
             const decoded = jwt.verify(otpToken, process.env.SECRET_KEY);
 
-            console.log(decoded)
             if (decoded.email !== email) {
                 throw new Error('Invalid token');
             }

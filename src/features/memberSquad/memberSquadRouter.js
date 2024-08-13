@@ -5,8 +5,6 @@ const { verifyToken} = require('../../middleware/authMiddleware');
 const router = express.Router();
 
 
-
-
 router.post('/', verifyToken, memberSquadController.createMemberSquad);
 router.put('/:id', memberSquadController.updateMemberSquad);
 router.get('/', memberSquadController.getAllMemberSquads);
