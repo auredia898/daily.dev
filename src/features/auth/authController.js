@@ -1,5 +1,5 @@
 const AuthService = require('./authService');
-const {authSchema} = require('../../validators/userValidator')
+const {authSchema} = require('../../validators/authValidator')
 const jwt = require('jsonwebtoken');
 
 class AuthController {
@@ -72,7 +72,7 @@ class AuthController {
                 throw new Error('Invalid token');
             }
 
-            await AuthService.forgotPassword(email, newPassword);
+            await AuthService.changePassword(email, newPassword);
 
             res.status(200).json({ success: true, message: 'Password changed successfully' });
         } catch (error) {

@@ -46,7 +46,7 @@ class PostController {
     async getPostById (req, res) {
         try {
             const post = await PostService.getPostById(req.params.postId)
-            res.status(200).json(post)
+            res.status(200).json([post])
         } catch (error) {
             res.status(400).json({error : error.message})
         }

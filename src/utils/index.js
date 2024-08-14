@@ -57,8 +57,8 @@ PostTag.belongsTo(Tag, { foreignKey: 'tagId'});
 
 
 // User and Bookmark
-User.belongsToMany(Post, { through: Bookmark, foreignKey: 'userId' });
-Post.belongsToMany(User, { through: Bookmark, foreignKey: 'postId' });
+User.belongsToMany(Post, { through: Bookmark, foreignKey: 'userId', otherKey: 'postId' });
+Post.belongsToMany(User, { through: Bookmark, foreignKey: 'postId', otherKey: 'userId' });
 
 // User and Comment
 User.hasMany(Comment, { foreignKey: 'userId' });
@@ -115,6 +115,7 @@ History.belongsTo(Post, { foreignKey: 'postId' });
 // User and Subscription
 User.hasMany(Subscription, { foreignKey: 'userId' });
 Subscription.belongsTo(User, { foreignKey: 'userId' });
+
 
 
 // Sync database
