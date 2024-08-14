@@ -8,7 +8,6 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors')
 
 
-
 const router = require('./api')
 
 dotenv.config();
@@ -19,10 +18,10 @@ const PORT = process.env.PORT || 8000;
 
 app.use(cookieParser());
 
-const privateKey = fs.readFileSync('./server.key', 'utf8')
-const certificate = fs.readFileSync('./server.cert', 'utf8')
+// const privateKey = fs.readFileSync('./server.key', 'utf8')
+// const certificate = fs.readFileSync('./server.cert', 'utf8')
 
-const credentials = { key: privateKey, cert: certificate}
+// const credentials = { key: privateKey, cert: certificate}
 
 app.use(express.json())
 
@@ -47,12 +46,12 @@ app.use(
 
 app.use(helmet.xXssProtection())
 
-app.use((req, res, next) =>{
-    if(req.secure){
-        return next()
-    }
-    res.redirect(`https://${req.headers.host}${req.url}`)
-})
+// app.use((req, res, next) =>{
+//     if(req.secure){
+//         return next()
+//     }
+//     res.redirect(`https://${req.headers.host}${req.url}`)
+// })
 
 app.use(cors());
 
@@ -62,19 +61,24 @@ app.get("/", (req, res) =>{
     res.send("welcome to my app");
 });
 
-const httpsServer = https.createServer(credentials, app)
-
-httpsServer.listen(PORT, () => {
-    console.log(`App stated successfully on https://localhost:${PORT}`)
+app.listen(PORT, ()=> {
+    console.log(`App started successfully on http://localhost:${PORT}`)
 })
 
-const httpApp = express();
-httpApp.use((req, res, next) =>{
-    res.redirect(`https://${req.headers.host}${req.url}`)
-})
+// const httpsServer = https.createServer(credentials, app)
 
-const httpServer = http.createServer(httpApp)
+// httpsServer.listen(PORT, () => {
+//     console.log(`App stated successfully on https://localhost:${PORT}`)
+// })
 
-httpServer.listen(8080, ()=>{
-    console.log(`Server HTTP en cours d\'exécution sur le port 80 et redirgé vers HTTPS `)
-})
+// const httpApp = express();
+// httpApp.use((req, res, next) =>{
+//     res.redirect(`https://${req.headers.host}${req.url}`)
+// })
+
+// const httpServer = http.createServer(httpApp)
+
+// httpServer.listen(8080, ()=>{
+//     console.log(`Server HTTP en cours d\'exécution sur le port 80 et redirgé vers HTTPS `)
+// })
+
